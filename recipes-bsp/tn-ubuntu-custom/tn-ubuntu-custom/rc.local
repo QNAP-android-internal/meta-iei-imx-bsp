@@ -4,29 +4,54 @@
 sudo systemctl mask sleep.target suspend.target
 gsettings set org.gnome.desktop.session idle-delay 0
 
-# change to specific default wallpaper
-gsettings set org.gnome.desktop.background picture-uri file:///usr/share/backgrounds/gnome/Icetwigs.jpg
-
 # disable pulseaudio as default setting
 sudo systemctl disable pulseaudio.socket
 sudo systemctl disable pulseaudio.service
 systemctl --user mask pulseaudio.socket
 systemctl --user mask pulseaudio.service
 
+# setting codec
+SOC=`cat /proc/device-tree/model | cut -d ' ' -f3`
+if [ $SOC == "B664" ];then
+        AUD_CARD=0
+elif [ $SOC == "B643" ];then
+        AUD_CARD=1
+fi
+
+# alc5672
+amixer -c $AUD_CARD sset 'IN1 Boost' '2'
+amixer -c $AUD_CARD sset 'RECMIXL BST1' 'on'
+amixer -c $AUD_CARD sset 'RECMIXR BST1' 'on'
+amixer -c $AUD_CARD sset 'Sto1 ADC MIXL ADC1' 'on'
+amixer -c $AUD_CARD sset 'Sto1 ADC MIXL ADC2' 'on'
+amixer -c $AUD_CARD sset 'Sto1 ADC MIXR ADC1' 'on'
+amixer -c $AUD_CARD sset 'Sto1 ADC MIXR ADC2' 'on'
+amixer -c $AUD_CARD sset 'Sto2 ADC MIXL ADC1' 'on'
+amixer -c $AUD_CARD sset 'Sto2 ADC MIXL ADC2' 'on'
+amixer -c $AUD_CARD sset 'Sto2 ADC MIXR ADC1' 'on'
+amixer -c $AUD_CARD sset 'Sto2 ADC MIXR ADC2' 'on'
+amixer -c $AUD_CARD sset 'Stereo DAC MIXL DAC L1' 'on'
+amixer -c $AUD_CARD sset 'Stereo DAC MIXR DAC R1' 'on'
+
+amixer -c $AUD_CARD sset 'HPOVOL MIXL DAC1' 'on'
+amixer -c $AUD_CARD sset 'HPOVOL MIXR DAC1' 'on'
+amixer -c $AUD_CARD sset 'HPO MIX HPVOL' 'on'
+amixer -c $AUD_CARD sset 'PDM1 L Mux' 'Stereo DAC'
+amixer -c $AUD_CARD sset 'PDM1 R Mux' 'Stereo DAC'
+
 # alsa layer: default audio card setting
 cat <<END > /home/ubuntu/.asoundrc
 pcm.!default {
   type plug
     slave {
-        pcm "hw:1,0"
+        pcm "hw:0,0"
           }
 }
 
 ctl.!default {
   type hw
-    card 1
+    card 0
 }
 END
-
 
 exit 0
