@@ -1,14 +1,38 @@
 #!/bin/bash
 
-# disable suspend/sleep mode by default setting
-sudo systemctl mask sleep.target suspend.target
-gsettings set org.gnome.desktop.session idle-delay 0
+if [[ "$(ls /run/user/0/wayland-0)" ]];then
+    CURRENT_OS="YOCTO"
+else
+    CURRENT_OS="UBUNTU"
+fi
 
-# disable pulseaudio as default setting
-sudo systemctl disable pulseaudio.socket
-sudo systemctl disable pulseaudio.service
-systemctl --user mask pulseaudio.socket
-systemctl --user mask pulseaudio.service
+if [[ "$CURRENT_OS" == "UBUNTU" ]];then
+    # disable suspend/sleep mode by default setting
+    sudo systemctl mask sleep.target suspend.target
+    gsettings set org.gnome.desktop.session idle-delay 0
+
+    # disable pulseaudio as default setting
+    sudo systemctl disable pulseaudio.socket
+    sudo systemctl disable pulseaudio.service
+    systemctl --user mask pulseaudio.socket
+    systemctl --user mask pulseaudio.service
+
+# alsa layer: default audio card setting
+cat <<END > /home/ubuntu/.asoundrc
+    pcm.!default {
+      type plug
+        slave {
+            pcm "hw:0,0"
+              }
+    }
+
+    ctl.!default {
+      type hw
+        card 0
+    }
+END
+
+fi
 
 # setting codec
 SOC=`cat /proc/device-tree/model | cut -d ' ' -f3`
@@ -38,20 +62,5 @@ amixer -c $AUD_CARD sset 'HPOVOL MIXR DAC1' 'on'
 amixer -c $AUD_CARD sset 'HPO MIX HPVOL' 'on'
 amixer -c $AUD_CARD sset 'PDM1 L Mux' 'Stereo DAC'
 amixer -c $AUD_CARD sset 'PDM1 R Mux' 'Stereo DAC'
-
-# alsa layer: default audio card setting
-cat <<END > /home/ubuntu/.asoundrc
-pcm.!default {
-  type plug
-    slave {
-        pcm "hw:0,0"
-          }
-}
-
-ctl.!default {
-  type hw
-    card 0
-}
-END
 
 exit 0
