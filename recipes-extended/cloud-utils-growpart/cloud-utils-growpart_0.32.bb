@@ -40,3 +40,5 @@ RDEPENDS:${PN} = " \
     gawk \
     util-linux \
 "
+
+RDEPENDS:${PN}:remove:ubuntu = "util-linux"
