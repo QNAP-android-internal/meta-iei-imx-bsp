@@ -55,6 +55,17 @@ elif [ -f ${NOTIFICATION} ] && [ -f ${GNOME_CONF} ]; then
   while [ ! -e  "$XDG_RUNTIME_DIR"/wayland-0 ] && [ $i -ne 0 ]; do sleep 0.1; i=$((i-1)); done
   sleep 1
 
+  # enable autologin
+  ENABLE_LINE=$(grep -rn "Enabling automatic login" ${GNOME_CONF} | awk -F: '{print $1}')
+  ENABLE_LINE=$(expr $ENABLE_LINE + 1)
+  sed -i "$ENABLE_LINE s/^#\(.*\)/\1/" ${GNOME_CONF}
+  ENABLE_LINE=$(expr $ENABLE_LINE + 1)
+  sed -i "$ENABLE_LINE s/^#\(.*\)/\1/" ${GNOME_CONF}
+  sed -i "$ENABLE_LINE s/user1/ubuntu/" ${GNOME_CONF}
+
+  # disable sudo with password
+  sed -i 's/sudo\tALL=(ALL:ALL) ALL/sudo\tALL=(ALL:ALL) NOPASSWD:ALL/' ${IMAGE_ROOTFS}/etc/sudoers
+
   eog -f ${NOTIFICATION} &
 fi
 
