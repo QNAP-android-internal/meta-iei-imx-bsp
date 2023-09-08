@@ -7,15 +7,18 @@ else
 fi
 
 if [[ "$CURRENT_OS" == "UBUNTU" ]];then
+    # check pulseaudio was be removed
+    if [ -f /usr/bin/pulseaudio ]; then
+        sudo apt -y remove pulseaudio
+        sudo apt -y autoremove
+        sudo mv /usr/bin/pulseaudio /usr/bin/pulseaudio.bak
+    fi
+
     # disable suspend/sleep mode by default setting
     sudo systemctl mask sleep.target suspend.target
-    gsettings set org.gnome.desktop.session idle-delay 0
 
-    # disable pulseaudio as default setting
-    sudo systemctl disable pulseaudio.socket
-    sudo systemctl disable pulseaudio.service
-    systemctl --user mask pulseaudio.socket
-    systemctl --user mask pulseaudio.service
+    sleep 5
+    gsettings set org.gnome.desktop.session idle-delay 0
 
 # alsa layer: default audio card setting
 cat <<END > /home/ubuntu/.asoundrc
