@@ -39,11 +39,7 @@ fi
 
 # setting codec
 SOC=`cat /proc/device-tree/model | cut -d ' ' -f3`
-if [ $SOC == "B664" ];then
-        AUD_CARD=0
-elif [ $SOC == "B643" ];then
-        AUD_CARD=1
-fi
+AUD_CARD=`cat /proc/asound/cards |grep 5672 |grep :|awk  '{print $1}'`
 
 # alc5672
 amixer -c $AUD_CARD sset 'IN1 Boost' '2'
