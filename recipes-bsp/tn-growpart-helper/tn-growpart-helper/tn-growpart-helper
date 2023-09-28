@@ -90,3 +90,10 @@ else
   echo 'Resizing task does not complete.'
   echo -e '***********************************\033[0m'
 fi
+# rfkill unblock wifi
+rfkill list |grep -A2 phy |grep yes
+if [ $? == 0 ];then
+	rfkill_list_no=`rfkill list |grep phy |cut -d ":" -f1`
+	rfkill unblock $rfkill_list_no
+fi
+
