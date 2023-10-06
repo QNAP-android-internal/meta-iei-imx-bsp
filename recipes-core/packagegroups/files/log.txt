@@ -1,0 +1,7 @@
+[ INFORMATION ]
+Time :
+
+[ VERSION ]
+Kernal version :
+
+[ FUNCTION ]
