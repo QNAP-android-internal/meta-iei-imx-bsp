@@ -23,7 +23,7 @@ baudrate=115200
 #hciconfig hci0 up
 #bluetoothctl power on
 #bluetoothctl agent on
-
+fail_count=0
 while true
 do
 	bluetoothctl scan on >/tmp/btctl_scan.txt &
@@ -41,8 +41,12 @@ do
 	bluetoothctl info $bt_mac >/tmp/bt_info.txt
 	cat /tmp/bt_info.txt |grep "Device $mac" |grep -v "not available"
 	if [ $? == 0 ];then
+		fail_count=0
 		echo pass >/tmp/bt_qc.txt
 	else
+		fail_count=$(($fail_count+1))
+	fi
+	if [ $fail_count -ge 3 ];then
 		echo fail >/tmp/bt_qc.txt
 	fi
 	sleep 10
