@@ -50,6 +50,15 @@ ctl.!default {
 }
 END
 
+#zram swap
+echo "zstd" >/sys/block/zram0/comp_algorithm
+mem_size=`free | grep -e "^Mem:" | awk '{print $2}'`
+swap_size=$(( ($mem_size)*1024/4))
+echo $swap_size  > /sys/block/zram0/disksize
+sysctl vm.swappiness=200
+mkswap /dev/zram0
+swapon -p 5 /dev/zram0
+
 #BT init
 bt_firmware_path=/lib/firmware/BCM4362A2_001.003.006.1045.1053.hcd
 baudrate=115200
