@@ -62,4 +62,18 @@ amixer -c $AUD_CARD sset 'HPO MIX HPVOL' 'on'
 amixer -c $AUD_CARD sset 'PDM1 L Mux' 'Stereo DAC'
 amixer -c $AUD_CARD sset 'PDM1 R Mux' 'Stereo DAC'
 
+#BT init
+bt_firmware_path=/lib/firmware/BCM4362A2_001.003.006.1045.1053.hcd
+baudrate=115200
+brcm-patchram-plus --enable_hci --no2bytes --use_baudrate_for_download --tosleep 200000 --baudrate $baudrate --patchram $bt_firmware_path /dev/ttymxc0 &
+sleep 10
+rfkill list |grep -A2 hci0 |grep yes
+if [ $? == 0 ];then
+	rfkill_list_no=`rfkill list |grep hci0 |cut -d ":" -f1`
+	rfkill unblock $rfkill_list_no
+fi
+hciconfig hci0 up
+bluetoothctl power on &
+bluetoothctl agent on &
+
 exit 0
