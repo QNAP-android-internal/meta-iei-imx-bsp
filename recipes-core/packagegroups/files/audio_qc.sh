@@ -18,7 +18,7 @@ headset_test()
 	--no-collapse --yesno "Hear loopback sound?" 10 50 2>&1'
 
 	if [ $? == 0 ];then
-		echo "pass" > /tmp/audio_headset_qc.txt/
+		echo "pass" > /tmp/audio_headset_qc.txt
 	else
 		echo "fail" > /tmp/audio_headset_qc.txt
 	fi
