@@ -8,6 +8,12 @@ LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0-only;;md5=801f80980d171dd6425610833a22dbe6"
 
 SRC_URI += "\
+     file://npu_files/coco_labels.txt \
+     file://npu_files/imagenet_labels.txt \
+     file://npu_files/key_point_labels.txt \
+     file://npu_files/mobilenet_v1_1.0_224_quant.tflite \
+     file://npu_files/posenet_resnet50_uint8_float32_quant.tflite \
+     file://npu_files/ssd_mobilenet_v2_coco_quant_postprocess.tflite \
      file://main.sh \
      file://configs/B643_qc_config.json \
      file://log_qc.sh \
@@ -44,6 +50,13 @@ SRC_URI += "\
 "
 
 do_install:append () {
+    install -d ${D}/home/root/.cache/demoexperience/
+    install -m 0644  ${WORKDIR}/npu_files/coco_labels.txt ${D}/home/root/.cache/demoexperience/coco_labels.txt
+    install -m 0644  ${WORKDIR}/npu_files/imagenet_labels.txt ${D}/home/root/.cache/demoexperience/1_1.0_224_labels.txt
+    install -m 0644  ${WORKDIR}/npu_files/key_point_labels.txt ${D}/home/root/.cache/demoexperience/key_point_labels.txt
+    install -m 0644  ${WORKDIR}/npu_files/mobilenet_v1_1.0_224_quant.tflite ${D}/home/root/.cache/demoexperience/mobilenet_v1_1.0_224_quant.tflite
+    install -m 0644  ${WORKDIR}/npu_files/posenet_resnet50_uint8_float32_quant.tflite ${D}/home/root/.cache/demoexperience/posenet_resnet50_uint8_float32_quant.tflite
+    install -m 0644  ${WORKDIR}/npu_files/ssd_mobilenet_v2_coco_quant_postprocess.tflite ${D}/home/root/.cache/demoexperience/mobilenet_ssd_v2_coco_quant_postprocess.tflite
     install -d ${D}/qc
     install -m 0755  ${WORKDIR}/main.sh ${D}/qc/
     install -m 0755  ${WORKDIR}/log_qc.sh ${D}/qc/
@@ -82,7 +95,9 @@ do_install:append () {
     install -m 0755  ${WORKDIR}/burnin/wifi_burnin.sh ${D}/qc/burnin/
 }
 
-FILES:${PN} ="/qc/"
+FILES:${PN} ="/qc/ \
+/home/root/.cache/demoexperience/ \
+"
 
 DQV_TOOLS = "dialog jq stress-ng"
 RDEPENDS:${PN}:append = "${DQV_TOOLS}"
