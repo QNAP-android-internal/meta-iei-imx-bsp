@@ -47,6 +47,7 @@ SRC_URI += "\
      file://burnin/usb_burnin.sh \
      file://burnin/video_burnin.sh \
      file://burnin/wifi_burnin.sh \
+     file://rs485.sh \
 "
 
 do_install:append () {
@@ -93,6 +94,7 @@ do_install:append () {
     install -m 0755  ${WORKDIR}/burnin/usb_burnin.sh ${D}/qc/burnin/
     install -m 0755  ${WORKDIR}/burnin/video_burnin.sh ${D}/qc/burnin/
     install -m 0755  ${WORKDIR}/burnin/wifi_burnin.sh ${D}/qc/burnin/
+    install -m 0755  ${WORKDIR}/rs485.sh ${D}/qc/
 }
 
 FILES:${PN} ="/qc/ \
