@@ -1,12 +1,13 @@
 #!/bin/sh
 
-test_video=$1
-if ! [ -f $test_video ];then
+sd_path=`ls /run/media/ |grep ^mmc`
+test_video_path=/run/media/$sd_path/test_video.mp4
+if ! [ -f $test_video_path ];then
 	echo "fail" > /tmp/video_qc.txt
 	exit
 fi
 
- gst-launch-1.0 filesrc location=$test_video typefind=true \
+ gst-launch-1.0 filesrc location=$test_video_path typefind=true \
 ! video/quicktime ! aiurdemux ! queue max-size-time=0 \
 ! vpudec ! waylandsink
 
