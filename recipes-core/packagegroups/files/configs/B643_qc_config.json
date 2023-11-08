@@ -131,11 +131,11 @@
   },
   {
     "names": "VIDEO",
-    "exec": "/qc/video_qc.sh /qc/test_video/test_video.mp4",
+    "exec": "/qc/video_qc.sh",
     "statusFile": "/tmp/video_qc.txt",
     "auto": "false",
     "burnin": "true",
-    "burnin_exec": "/qc/burnin/video_burnin.sh /run/media/mmcblk1p2/tmp_video/test_video.mp4",
+    "burnin_exec": "/qc/burnin/video_burnin.sh",
     "teston": "true"
   },
   {
@@ -150,22 +150,6 @@
     "names": "SPEAKER",
     "exec": "/qc/audio_qc.sh speaker",
     "statusFile": "/tmp/audio_speaker_qc.txt",
-    "auto": "false",
-    "burnin": "false",
-    "teston": "false"
-  },
-  {
-    "names": "TOUCH",
-    "exec": "/qc/touch_qc.sh",
-    "statusFile": "/tmp/touch_qc.txt",
-    "auto": "false",
-    "burnin": "false",
-    "teston": "false"
-  },
-  {
-    "names": "DSI",
-    "exec": "/qc/edp_qc.sh",
-    "statusFile": "/tmp/edp_qc.txt",
     "auto": "false",
     "burnin": "false",
     "teston": "false"
