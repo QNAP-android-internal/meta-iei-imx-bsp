@@ -16,6 +16,7 @@ if [[ "$CURRENT_OS" == "UBUNTU" ]];then
 
     # disable suspend/sleep mode by default setting
     sudo systemctl mask sleep.target suspend.target
+    sudo systemctl mask systemd-networkd-wait-online.service
 
     sleep 5
     gsettings set org.gnome.desktop.session idle-delay 0
