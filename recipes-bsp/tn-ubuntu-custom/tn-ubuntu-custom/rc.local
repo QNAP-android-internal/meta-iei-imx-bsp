@@ -72,6 +72,10 @@ sysctl vm.swappiness=200
 mkswap /dev/zram0
 swapon -p 5 /dev/zram0
 
+#suspend resume
+systemctl unmask sleep.target
+systemctl unmask suspend.target
+
 #BT init
 bt_firmware_path=/lib/firmware/BCM4362A2_001.003.006.1045.1053.hcd
 baudrate=115200

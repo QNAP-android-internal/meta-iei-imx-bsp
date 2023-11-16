@@ -97,3 +97,6 @@ if [ $? == 0 ];then
 	rfkill unblock $rfkill_list_no
 fi
 
+#set /etc/systemd/logind.conf HandlePowerKey=suspend for powerkey suspend
+sed -i -e 's/HandlePowerKey=ignore/HandlePowerKey=suspend/g' /etc/systemd/logind.conf
+sync
