@@ -1,0 +1,14 @@
+
+CONNECTIVITY_CHECK_URIS = "https://www.google.com"
+
+PACKAGECONFIG:append:pn-opencv_mx8 = " test"
+TOOLCHAIN_TARGET_TASK:append = " onnxruntime-dev"
+
+MACHINE_FEATURES:append = " wifi bluetooth"
+IMAGE_FEATURES:append = " ssh-server-openssh"
+
+INHERIT += "image-buildinfo"
+IMAGE_BUILDINFO_VARS = "DISTRO DISTRO_VERSION MACHINE DEVICE_MODEL DEVICE_TYPE IMX_GPU_VERSION RELEASE_VERSION"
+
+#BUILDTAG ??= "IASO-iMX8MM"
+RELEASE_VERSION ?= "IASO-iMX8MM-${@'PREBUILD-%s' % (lambda dt: (dt.date.today().__str__()))(__import__('datetime')) if (d.getVar('BUILDTAG', True) is None) else '%s' % d.getVar('BUILDTAG')}"
