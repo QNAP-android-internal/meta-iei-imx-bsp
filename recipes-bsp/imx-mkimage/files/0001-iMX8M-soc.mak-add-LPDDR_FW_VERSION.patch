@@ -1,0 +1,13 @@
+diff --git a/iMX8M/soc.mak b/iMX8M/soc.mak
+index 0a69b71..b97a322 100644
+--- a/iMX8M/soc.mak
++++ b/iMX8M/soc.mak
+@@ -39,6 +39,8 @@ VAL_BOARD = val
+ QSPI_HEADER = ../scripts/fspi_header 0
+ QSPI_PACKER = ../scripts/fspi_packer.sh
+ VERSION = v1
++LPDDR_FW_VERSION = _202006
++DDR_FW_VERSION = _202006
+ CAPSULE_GUID = ead2005e-7780-400b-9348-a282eb858b6b
+ else ifeq ($(SOC),iMX8MN)
+ PLAT = imx8mn
