@@ -7,6 +7,8 @@ TOOLCHAIN_TARGET_TASK:append = " onnxruntime-dev"
 MACHINE_FEATURES:append = " wifi bluetooth"
 IMAGE_FEATURES:append = " ssh-server-openssh"
 
+IMAGE_FSTYPES:append = " wic"
+
 INHERIT += "image-buildinfo"
 IMAGE_BUILDINFO_VARS = "DISTRO DISTRO_VERSION MACHINE DEVICE_MODEL DEVICE_TYPE IMX_GPU_VERSION RELEASE_VERSION"
 
