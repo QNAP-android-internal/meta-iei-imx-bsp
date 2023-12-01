@@ -3,7 +3,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 UBOOT_SRC = "git://github.com/QNAP-android-internal/uboot-imx.git;protocol=https"
 SRCBRANCH = "iei-imx_v2022.04_5.15.71_2.2.0-next"
 SRC_URI = "${UBOOT_SRC};branch=${SRCBRANCH}"
-SRCREV = "a6d9386802cb6788cc4c7594f2800f671330ca35"
+SRCREV = "${AUTOREV}"
 
 do_deploy:append () {
 	install -d ${DEPLOYDIR}
