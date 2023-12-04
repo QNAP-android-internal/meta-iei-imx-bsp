@@ -1,0 +1,26 @@
+From 7dd26a8ba8e6fdffe970dae54574628e2e3123b3 Mon Sep 17 00:00:00 2001
+From: cmwang <cmwang@ieiworld.com>
+Date: Mon, 4 Dec 2023 12:20:53 +0800
+Subject: [PATCH] rules.d: 99-systemd.rules: disable ID_BACKLIGHT_CLAMP for
+ buzzer_pwm
+
+---
+ rules.d/99-systemd.rules.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/rules.d/99-systemd.rules.in b/rules.d/99-systemd.rules.in
+index 25b8a590a6..2f22cc48ca 100644
+--- a/rules.d/99-systemd.rules.in
++++ b/rules.d/99-systemd.rules.in
+@@ -61,7 +61,7 @@ ACTION=="add", SUBSYSTEM=="net", KERNEL!="lo", RUN+="{{ROOTLIBEXECDIR}}/systemd-
+ 
+ # Pull in backlight save/restore for all backlight devices and
+ # keyboard backlights
+-SUBSYSTEM=="backlight", TAG+="systemd", IMPORT{builtin}="path_id", ENV{SYSTEMD_WANTS}+="systemd-backlight@backlight:$name.service"
++SUBSYSTEM=="backlight", TAG+="systemd", IMPORT{builtin}="path_id", ENV{SYSTEMD_WANTS}+="systemd-backlight@backlight:$name.service", ENV{ID_BACKLIGHT_CLAMP}+="0"
+ SUBSYSTEM=="leds", KERNEL=="*kbd_backlight", TAG+="systemd", IMPORT{builtin}="path_id", ENV{SYSTEMD_WANTS}+="systemd-backlight@leds:$name.service"
+ 
+ # Pull in rfkill save/restore for all rfkill devices
+-- 
+2.34.1
+
