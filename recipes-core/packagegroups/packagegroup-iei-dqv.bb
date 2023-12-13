@@ -50,7 +50,6 @@ SRC_URI += "\
      file://burnin/video_burnin.sh \
      file://burnin/wifi_burnin.sh \
      file://rs485.sh \
-     file://eth_resume.sh \
 "
 
 do_install:append () {
@@ -98,13 +97,10 @@ do_install:append () {
     install -m 0755  ${WORKDIR}/burnin/video_burnin.sh ${D}/qc/burnin/
     install -m 0755  ${WORKDIR}/burnin/wifi_burnin.sh ${D}/qc/burnin/
     install -m 0755  ${WORKDIR}/rs485.sh ${D}/qc/
-    install  -d ${D}/lib/systemd/system-sleep/
-    install -m 0755  ${WORKDIR}/eth_resume.sh ${D}/lib/systemd/system-sleep/
 }
 
 FILES:${PN} ="/qc/ \
 /home/root/.cache/demoexperience/ \
-/lib/systemd/system-sleep/ \
 "
 
 DQV_TOOLS = "dialog jq stress-ng"
