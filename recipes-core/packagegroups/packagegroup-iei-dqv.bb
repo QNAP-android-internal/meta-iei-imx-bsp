@@ -7,6 +7,8 @@ inherit allarch update-alternatives
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0-only;;md5=801f80980d171dd6425610833a22dbe6"
 
+IEI_DQV_JSON = "${@bb.utils.contains("MACHINE", "wafer-imx8mp", "B643_qc_config.json", "B664_qc_config.json", d)}"
+
 SRC_URI += "\
      file://npu_files/coco_labels.txt \
      file://npu_files/imagenet_labels.txt \
@@ -15,7 +17,7 @@ SRC_URI += "\
      file://npu_files/posenet_resnet50_uint8_float32_quant.tflite \
      file://npu_files/ssd_mobilenet_v2_coco_quant_postprocess.tflite \
      file://main.sh \
-     file://configs/B643_qc_config.json \
+     file://configs/${IEI_DQV_JSON} \
      file://log_qc.sh \
      file://log.txt \
      file://audio_qc.sh \
@@ -82,7 +84,7 @@ do_install:append () {
     install -m 0755  ${WORKDIR}/video_qc.sh ${D}/qc/
     install -m 0755  ${WORKDIR}/wifi_qc.sh ${D}/qc/
     install -d ${D}/qc/configs/
-    install -m 0755  ${WORKDIR}/configs/B643_qc_config.json  ${D}/qc/configs
+    install -m 0755  ${WORKDIR}/configs/${IEI_DQV_JSON}  ${D}/qc/configs
     install -d ${D}/qc/burnin/
     install -m 0755  ${WORKDIR}/burnin/bt_burnin.sh ${D}/qc/burnin/
     install -m 0755  ${WORKDIR}/burnin/camera_burnin.sh ${D}/qc/burnin/
