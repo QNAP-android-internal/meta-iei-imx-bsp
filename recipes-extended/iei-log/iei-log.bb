@@ -9,7 +9,7 @@ do_install() {
                 wafer-imx8mp)
                         SOC=643
                         ;;
-                wafer-imx8mm)
+                iaso-imx8mm)
                         SOC=664
                         ;;
         esac
