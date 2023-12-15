@@ -76,10 +76,22 @@ swapon -p 5 /dev/zram0
 systemctl unmask sleep.target
 systemctl unmask suspend.target
 
-#BT init
-bt_firmware_path=/lib/firmware/BCM4362A2_001.003.006.1045.1053.hcd
-baudrate=115200
-brcm-patchram-plus --enable_hci --no2bytes --use_baudrate_for_download --tosleep 200000 --baudrate $baudrate --patchram $bt_firmware_path /dev/ttymxc0 &
+#BT init and up
+
+#wifi 5 Cdtech 47822CS-22 driver rtl8822cs
+lsmod | grep rtl8822cs
+if [ $? == 0 ];then
+	rtk-hciattach -n -s 115200 /dev/ttymxc0 rtk_h5 &
+fi
+
+#wifi 6 AP6275S driver bcmdhd
+lsmod | grep bcmdhd
+if [ $? == 0 ];then
+	bt_firmware_path=/lib/firmware/BCM4362A2_001.003.006.1045.1053.hcd
+	baudrate=115200
+	brcm-patchram-plus --enable_hci --no2bytes --use_baudrate_for_download --tosleep 200000 --baudrate $baudrate --patchram $bt_firmware_path /dev/ttymxc0 &
+fi
+
 sleep 10
 rfkill list |grep -A2 hci0 |grep yes
 if [ $? == 0 ];then
