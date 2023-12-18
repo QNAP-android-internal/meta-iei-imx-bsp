@@ -50,6 +50,11 @@ SRC_URI += "\
      file://burnin/video_burnin.sh \
      file://burnin/wifi_burnin.sh \
      file://rs485.sh \
+     file://buzzer_qc.sh \
+     file://edp_qc.sh \
+     file://lightbar_qc.sh \
+     file://nor_qc.sh \
+     file://touch_qc.sh \
 "
 
 do_install:append () {
@@ -97,6 +102,11 @@ do_install:append () {
     install -m 0755  ${WORKDIR}/burnin/video_burnin.sh ${D}/qc/burnin/
     install -m 0755  ${WORKDIR}/burnin/wifi_burnin.sh ${D}/qc/burnin/
     install -m 0755  ${WORKDIR}/rs485.sh ${D}/qc/
+    install -m 0755  ${WORKDIR}/buzzer_qc.sh ${D}/qc/
+    install -m 0755  ${WORKDIR}/edp_qc.sh ${D}/qc/
+    install -m 0755  ${WORKDIR}/lightbar_qc.sh ${D}/qc/
+    install -m 0755  ${WORKDIR}/nor_qc.sh ${D}/qc/
+    install -m 0755  ${WORKDIR}/touch_qc.sh ${D}/qc/
 }
 
 FILES:${PN} ="/qc/ \

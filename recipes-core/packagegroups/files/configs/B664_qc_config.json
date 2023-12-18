@@ -5,15 +5,7 @@
     "statusFile": "/tmp/rtc_qc.txt",
     "auto": "true",
     "burnin": "false",
-    "teston": "false"
-  },
-  {
-    "names": "MODEM",
-    "exec": "/qc/modem_qc.sh",
-    "statusFile": "/tmp/modem_qc.txt",
-    "auto": "true",
-    "burnin": "false",
-    "teston": "false"
+    "teston": "true"
   },
   {
     "names": "EMMC",
@@ -21,7 +13,7 @@
     "statusFile": "/tmp/emmc_qc.txt",
     "auto": "true",
     "burnin": "false",
-    "teston": "false"
+    "teston": "true"
   },
   {
     "names": "ETH0",
@@ -47,7 +39,7 @@
     "statusFile": "/tmp/mem_qc.txt",
     "auto": "true",
     "burnin": "false",
-    "teston": "false"
+    "teston": "true"
   },
   {
     "names": "BT",
@@ -56,6 +48,31 @@
     "auto": "true",
     "burnin": "true",
     "burnin_exec": "/qc/burnin/bt_burnin.sh",
+    "teston": "true"
+  },
+  {
+    "names": "NOR",
+    "exec": "/qc/nor_qc.sh",
+    "statusFile": "/tmp/nor_qc.txt",
+    "auto": "true",
+    "burnin": "false",
+    "teston": "true"
+  },
+  {
+    "names": "OTG",
+    "exec": "/qc/otg_qc.sh",
+    "statusFile": "/tmp/otg_qc.txt",
+    "auto": "true",
+    "burnin": "false",
+    "teston": "true"
+  },
+  {
+    "names": "SD",
+    "exec": "/qc/sd_qc.sh mmcblk1",
+    "statusFile": "/tmp/sd_qc_mmcblk1.txt",
+    "auto": "true",
+    "burnin": "true",
+    "burnin_exec": "/qc/burnin/sd_burnin.sh mmcblk1",
     "teston": "true"
   },
   {
@@ -68,65 +85,12 @@
     "teston": "true"
   },
   {
-    "names": "UART_ttymxc2",
-    "exec": "/qc/uart_qc.sh ttymxc2",
-    "statusFile": "/tmp/uart_qc_ttymxc2.txt",
-    "auto": "true",
-    "burnin": "true",
-    "burnin_exec": "/qc/burnin/uart_burnin.sh ttymxc2",
-    "teston": "true"
-  },
-  {
     "names": "WIFI",
-    "exec": "/qc/wifi_qc.sh",
+    "exec": "/qc/wifi_qc.sh IEI-YOCTO-Test 192.168.8.188",
     "statusFile": "/tmp/wifi_qc.txt",
     "auto": "true",
     "burnin": "true",
     "burnin_exec": "/qc/burnin/wifi_burnin.sh",
-    "teston": "true"
-  },
-  {
-    "names": "OTG",
-    "exec": "/qc/otg_qc.sh",
-    "statusFile": "/tmp/otg_qc.txt",
-    "auto": "true",
-    "burnin": "false",
-    "teston": "false"
-  },
-  {
-    "names": "SD",
-    "exec": "/qc/sd_qc.sh mmcblk1",
-    "statusFile": "/tmp/sd_qc_mmcblk1.txt",
-    "auto": "true",
-    "burnin": "true",
-    "burnin_exec": "/qc/burnin/sd_burnin.sh mmcblk1",
-    "teston": "true"
-  },
-  {
-    "names": "GPIO",
-    "exec": "/qc/gpio_qc.sh",
-    "statusFile": "/tmp/gpio_qc.txt",
-    "auto": "true",
-    "burnin": "true",
-    "burnin_exec": "/qc/burnin/gpio_burnin.sh",
-    "teston": "true"
-  },
-  {
-    "names": "CAMERA",
-    "exec": "/qc/camera_qc.sh /dev/video3",
-    "statusFile": "/tmp/camera_qc.txt",
-    "auto": "false",
-    "burnin": "true",
-    "burnin_exec": "/qc/burnin/camera_burnin.sh /dev/video3",
-    "teston": "true"
-  },
-  {
-    "names": "VIDEO",
-    "exec": "/qc/video_qc.sh",
-    "statusFile": "/tmp/video_qc.txt",
-    "auto": "false",
-    "burnin": "true",
-    "burnin_exec": "/qc/burnin/video_burnin.sh",
     "teston": "true"
   },
   {
@@ -135,7 +99,15 @@
     "statusFile": "/tmp/audio_headset_qc.txt",
     "auto": "false",
     "burnin": "false",
-    "teston": "false"
+    "teston": "true"
+  },
+  {
+    "names": "DMIC",
+    "exec": "/qc/audio_qc.sh DMIC",
+    "statusFile": "/tmp/audio_dmic_loopback_qc.txt",
+    "auto": "false",
+    "burnin": "false",
+    "teston": "true"
   },
   {
     "names": "SPEAKER",
@@ -143,15 +115,39 @@
     "statusFile": "/tmp/audio_speaker_qc.txt",
     "auto": "false",
     "burnin": "false",
-    "teston": "false"
+    "teston": "true"
   },
   {
-    "names": "HDMI",
-    "exec": "/qc/hdmi_qc.sh",
-    "statusFile": "/tmp/hdmi_qc.txt",
-    "auto": "true",
+    "names": "BUZZER",
+    "exec": "/qc/buzzer_qc.sh",
+    "statusFile": "/tmp/buzzer_qc.txt",
+    "auto": "false",
     "burnin": "false",
-    "teston": "false"
+    "teston": "true"
+  },
+  {
+    "names": "LIGHTBAR",
+    "exec": "/qc/lightbar_qc.sh",
+    "statusFile": "/tmp/lightbar_qc.txt",
+    "auto": "false",
+    "burnin": "false",
+    "teston": "true"
+  },
+  {
+    "names": "TOUCH",
+    "exec": "/qc/touch_qc.sh",
+    "statusFile": "/tmp/touch_qc.txt",
+    "auto": "false",
+    "burnin": "false",
+    "teston": "true"
+  },
+  {
+    "names": "EDP",
+    "exec": "/qc/edp_qc.sh",
+    "statusFile": "/tmp/edp_qc.txt",
+    "auto": "false",
+    "burnin": "false",
+    "teston": "true"
   },
   {
     "names": "CPU",
@@ -160,15 +156,6 @@
     "auto": "true",
     "burnin": "true",
     "burnin_exec": "/qc/burnin/cpu_burnin.sh",
-    "teston": "true"
-  },
-  {
-    "names": "GPU",
-    "exec": "/qc/gpu_qc.sh 500",
-    "statusFile": "/tmp/gpu_qc.txt",
-    "auto": "true",
-    "burnin": "true",
-    "burnin_exec": "/qc/burnin/gpu_burnin.sh",
     "teston": "true"
   },
   {
