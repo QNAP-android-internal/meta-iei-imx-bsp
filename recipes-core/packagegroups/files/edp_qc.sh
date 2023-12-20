@@ -15,11 +15,13 @@ echo "$res_org" >/tmp/res.txt
 fbset -fb /dev/fb0 -g 800 1280 1920 1280 16
 fb-test
 
+BL_DEV=$(cat /proc/device-tree/model | tr -d '\000')
+
 for i in $(seq 1 100);
 do
-    if [[ "$(cat /proc/device-tree/model | grep "B643")" ]]; then
+    if [[ "$BL_DEV" =~ "B643" ]]; then
         echo "$i" > /sys/class/backlight/dsi_backlight/brightness
-    elif [[ "$(cat /proc/device-tree/model | grep "B664")" ]]; then
+    elif [[ "$BL_DEV" =~  "B664" ]]; then
         echo "$i" > /sys/class/backlight/dp_backlight/brightness
     else
         echo "$i" > /sys/class/backlight/dsi_backlight/brightness
