@@ -1,0 +1,27 @@
+From 5f40272f302d0d0b37121751ae36e2171fb6da47 Mon Sep 17 00:00:00 2001
+From: cmwang <cmwang@ieiworld.com>
+Date: Fri, 29 Dec 2023 06:59:45 +0000
+Subject: [PATCH] imx8m: imx8m_psci_common.c: fix the issue that poweroff
+ command will reboot
+
+---
+ plat/imx/imx8m/imx8m_psci_common.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/plat/imx/imx8m/imx8m_psci_common.c b/plat/imx/imx8m/imx8m_psci_common.c
+index 4c84557ba..7a0802358 100644
+--- a/plat/imx/imx8m/imx8m_psci_common.c
++++ b/plat/imx/imx8m/imx8m_psci_common.c
+@@ -249,7 +249,8 @@ int imx_system_reset2(int is_vendor, int reset_type, u_register_t cookie)
+ void __dead2 imx_system_off(void)
+ {
+ 	mmio_write_32(IMX_SNVS_BASE + SNVS_LPCR, SNVS_LPCR_SRTC_ENV |
+-			SNVS_LPCR_DP_EN | SNVS_LPCR_TOP | SNVS_LPCR_LPTA_EN | SNVS_LPCR_LPWUI_EN);
++			//SNVS_LPCR_DP_EN | SNVS_LPCR_TOP | SNVS_LPCR_LPTA_EN | SNVS_LPCR_LPWUI_EN);
++			SNVS_LPCR_DP_EN | SNVS_LPCR_TOP);
+ 
+ 	while (1)
+ 		;
+-- 
+2.34.1
+
