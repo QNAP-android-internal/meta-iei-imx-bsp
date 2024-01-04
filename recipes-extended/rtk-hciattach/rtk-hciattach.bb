@@ -6,7 +6,6 @@ INSANE_SKIP:${PN} = "ldflags"
 S = "${WORKDIR}"
 
 SRC_URI += "\
-        file://Config.in \
         file://hciattach.c \
         file://hciattach.h \
         file://hciattach_h4.c \
@@ -15,7 +14,6 @@ SRC_URI += "\
 	file://Makefile \
 	file://rtb_fwc.c \
 	file://rtb_fwc.h \
-	file://rtk_hciattach.mk \
 "
 
 do_compile() {
