@@ -14,7 +14,7 @@ if [ ${OS} = "Ubuntu" ] ;then
 		exit
 	fi
 
-	gst-launch-1.0 playbin uri=file://$test_video_path video-sink="glimagesink"
+	sudo gst-launch-1.0 playbin uri=file://$test_video_path video-sink="glimagesink render-rectangle=<1,1,1280,800>" audio-sink="alsasink device=hw:0"
 else
 	sd_path=`ls /run/media/ |grep ^mmc`
         test_video_path=/run/media/$sd_path/test_video.mp4
