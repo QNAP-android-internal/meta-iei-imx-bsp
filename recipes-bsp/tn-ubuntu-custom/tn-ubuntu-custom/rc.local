@@ -7,13 +7,6 @@ else
 fi
 
 if [[ "$CURRENT_OS" == "UBUNTU" ]];then
-    # check pulseaudio was be removed
-    if [ -f /usr/bin/pulseaudio ]; then
-        sudo apt -y remove pulseaudio
-        sudo apt -y autoremove
-        sudo mv /usr/bin/pulseaudio /usr/bin/pulseaudio.bak
-    fi
-
     # disable suspend/sleep mode by default setting
     sudo systemctl mask sleep.target suspend.target
     sudo systemctl mask systemd-networkd-wait-online.service
