@@ -16,7 +16,7 @@ if [ -f /etc/lsb-release ]; then
 fi
 
 if [ ${OS} = "Ubuntu" ] ;then
-	gst-launch-1.0 v4l2src device=/dev/video3 num-buffers=1 ! jpegenc ！ filesink location = /tmp/sample.jpeg
+	gst-launch-1.0 v4l2src device=/dev/video3 num-buffers=1 ! jpegenc ! filesink location = /tmp/sample.jpeg
 	fim /tmp/sample.jpeg
 else
 	gst-launch-1.0 v4l2src device=/dev/video3 ! 'video/x-raw,format=YUY2,width=1280,height=720,pixel-aspect-ratio=1/1,framerate=30/1' !  waylandsink & 
