@@ -16,4 +16,5 @@ APTGET_EXTRA_PACKAGES += " \
     fim \
     glmark2-es2-wayland \
     blueman \
+    python3-numpy \
 "
