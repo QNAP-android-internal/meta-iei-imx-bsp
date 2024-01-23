@@ -16,6 +16,15 @@ SRC_URI += "\
      file://npu_files/mobilenet_v1_1.0_224_quant.tflite \
      file://npu_files/posenet_resnet50_uint8_float32_quant.tflite \
      file://npu_files/ssd_mobilenet_v2_coco_quant_postprocess.tflite \
+     file://npu_files/MLDemoLauncher.py \
+     file://npu_files/nnclassification.py \
+     file://npu_files/nnpose.py \
+     file://npu_files/nnbrand.py \
+     file://npu_files/nndetection.py \
+     file://npu_files/utils.py \
+     file://npu_files/downloads.txt \
+     file://npu_files/LICENSE \
+     file://npu_files/SW-Content-Register.txt \
      file://main.sh \
      file://configs/${IEI_DQV_JSON} \
      file://log_qc.sh \
@@ -58,6 +67,29 @@ SRC_URI += "\
 "
 
 do_install:append () {
+
+    case ${DISTRO} in
+        fsl-imx-xwayland)
+            OS=Yocto
+            ;;
+        imx-desktop-xwayland)
+            OS=Ubuntu
+            ;;
+    esac
+
+    if [ ${OS} = "Ubuntu" ] ;then
+        install -d ${D}/home/root/machine_learning/
+        install -m 0644  ${WORKDIR}/npu_files/MLDemoLauncher.py ${D}/home/root/machine_learning/MLDemoLauncher.py
+        install -m 0644  ${WORKDIR}/npu_files/nnbrand.py ${D}/home/root/machine_learning/nnbrand.py
+        install -m 0644  ${WORKDIR}/npu_files/nnclassification.py ${D}/home/root/machine_learning/nnclassification.py
+        install -m 0644  ${WORKDIR}/npu_files/nndetection.py ${D}/home/root/machine_learning/nndetection.py
+        install -m 0644  ${WORKDIR}/npu_files/nnpose.py ${D}/home/root/machine_learning/nnpose.py
+        install -m 0644  ${WORKDIR}/npu_files/utils.py ${D}/home/root/machine_learning/utils.py
+        install -m 0644  ${WORKDIR}/npu_files/downloads.txt ${D}/home/root/machine_learning/downloads.txt
+        install -m 0644  ${WORKDIR}/npu_files/LICENSE ${D}/home/root/machine_learning/LICENSE
+        install -m 0644  ${WORKDIR}/npu_files/SW-Content-Register.txt ${D}/home/root/machine_learning/SW-Content-Register.txt
+    fi
+
     install -d ${D}/home/root/.cache/demoexperience/
     install -m 0644  ${WORKDIR}/npu_files/coco_labels.txt ${D}/home/root/.cache/demoexperience/coco_labels.txt
     install -m 0644  ${WORKDIR}/npu_files/imagenet_labels.txt ${D}/home/root/.cache/demoexperience/1_1.0_224_labels.txt
@@ -111,6 +143,7 @@ do_install:append () {
 
 FILES:${PN} ="/qc/ \
 /home/root/.cache/demoexperience/ \
+/home/root/machine_learning/ \
 "
 
 DQV_TOOLS = "dialog jq stress-ng"
