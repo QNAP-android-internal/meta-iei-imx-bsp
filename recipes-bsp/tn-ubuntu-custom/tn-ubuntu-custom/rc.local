@@ -11,8 +11,8 @@ if [[ "$CURRENT_OS" == "UBUNTU" ]];then
     sudo systemctl mask sleep.target suspend.target
     sudo systemctl mask systemd-networkd-wait-online.service
 
-    sleep 5
     gsettings set org.gnome.desktop.session idle-delay 0
+    sudo chown -R ubuntu:ubuntu /home/root/
 
 # alsa layer: default audio card setting
 cat <<END > /home/ubuntu/.asoundrc
