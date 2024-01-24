@@ -17,4 +17,7 @@ APTGET_EXTRA_PACKAGES += " \
     glmark2-es2-wayland \
     blueman \
     python3-numpy \
+    iptables \
+    xinput-calibrator \
+    iperf \
 "
