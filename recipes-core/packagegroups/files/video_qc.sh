@@ -5,7 +5,7 @@ if [ -f /etc/lsb-release ]; then
 	OS=$DISTRIB_ID
 fi
 
-if [ ${OS} = "Ubuntu" ] ;then
+if [ "$OS" = "Ubuntu" ]; then
 	sd_path=`ls /media/ubuntu/`
 	test_video_path=/media/ubuntu/$sd_path/test_video.mp4
 
@@ -16,8 +16,8 @@ if [ ${OS} = "Ubuntu" ] ;then
 
 	sudo gst-launch-1.0 playbin uri=file://$test_video_path video-sink="glimagesink render-rectangle=<1,1,1280,800>" audio-sink="alsasink device=hw:0"
 else
-	sd_path=`ls /run/media/ |grep ^mmc`
-        test_video_path=/run/media/$sd_path/test_video.mp4
+	sd_path=$(mount | grep mmcblk1 | awk -F' ' '{print $3}')
+	test_video_path=$sd_path/test_video.mp4
 
         if ! [ -f $test_video_path ];then
 	        echo "fail" > /tmp/video_qc.txt
@@ -29,10 +29,11 @@ else
         ! vpudec ! waylandsink
 fi
 
+video_result=$?
+
 sh -c 'dialog --colors --title "Video Test" \
 --no-collapse --yesno "See the vdieo??" 10 50'
 
-video_result=$?
 
 if [[ "$video_result" == '1' ]]; then
     echo "fail" > /tmp/video_qc.txt
