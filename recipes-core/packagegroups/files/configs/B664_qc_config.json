@@ -159,13 +159,6 @@
     "teston": "true"
   },
   {
-    "names": "LIGHTBAR",
-    "exec": "/qc/lightbar_qc.sh",
-    "statusFile": "/tmp/lightbar_qc.txt",
-    "auto": "false",
-    "teston": "true"
-  },
-  {
     "names": "VIDEO",
     "exec": "/qc/video_qc.sh",
     "statusFile": "/tmp/video_qc.txt",
