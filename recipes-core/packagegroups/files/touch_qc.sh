@@ -9,10 +9,11 @@ device_path=${device_path#\"}
 device_path=${device_path%\"}
 
 weston-touch-calibrator $device_path
-TOUCH_RESULTS=$?
 
 sh -c 'dialog --colors --title "Touch Test" \
 --no-collapse --yesno "Touch Drawing works??" 10 50'
+
+TOUCH_RESULTS=$?
 
 if [[ "$TOUCH_RESULTS" == '1' ]]; then
     echo "fail" > /tmp/touch_qc.txt
