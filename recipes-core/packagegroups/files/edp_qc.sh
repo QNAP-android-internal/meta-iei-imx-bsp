@@ -1,47 +1,46 @@
 #!/bin/sh
 
-export TERM=linux
-export XDG_RUNTIME_DIR=/run/user/$UID/
+# RGB test
+weston-presentation-shm > /dev/null 2>&1 &
+RGB_PID=$(pidof weston-presentation-shm)
+sleep 3
+kill -9 $RGB_PID
+weston-presentation-shm > /dev/null 2>&1 &
+RGB_PID=$(pidof weston-presentation-shm)
+sleep 3
+kill -9 $RGB_PID
+weston-presentation-shm > /dev/null 2>&1 &
+RGB_PID=$(pidof weston-presentation-shm)
+sleep 3
+kill -9 $RGB_PID
 
-if [ -f /sys/class/i2c-dev/i2c-1/device/1-002d/ ]; then
-	echo "lcd bridge existed, starting test"
-else
-    echo "fail" > /tmp/edp_qc.txt
-fi
+weston-simple-dmabuf-feedback > /dev/null 2>&1
 
-res_org=`fbset |grep geometry |cut -d ' ' -f 1 --complement`
-echo "$res_org" >/tmp/res.txt
-
-fbset -fb /dev/fb0 -g 800 1280 1920 1280 16
-fb-test
-
-BL_DEV=$(cat /proc/device-tree/model | tr -d '\000')
+# Backlight test
+BL_DEV=$(cat /proc/device-tree/model | tr -d '\000' | cut -d ' ' -f3)
 
 for i in $(seq 1 100);
 do
-    if [[ "$BL_DEV" =~ "B643" ]]; then
+    if [ "$BL_DEV" = "B643" ]; then
         echo "$i" > /sys/class/backlight/dsi_backlight/brightness
-    elif [[ "$BL_DEV" =~  "B664" ]]; then
+    elif [ "$BL_DEV" =  "B664" ]; then
         echo "$i" > /sys/class/backlight/dp_backlight/brightness
     else
         echo "$i" > /sys/class/backlight/dsi_backlight/brightness
     fi
 
-    sleep 0.02
+    sleep 0.1
 done
+
 
 sleep 0.5
 sh -c 'dialog --colors --title "LCD Test" \
---no-collapse --yesno "RGB, backlight both work?" 10 50 \
-<> /dev/tty1 >&0'
+--no-collapse --yesno "RGB and Backlight test work?" 10 50'
 
-LCD_RESULTS="$?"
-if [[ "$LCD_RESULTS" == '1' ]]; then
-    echo "fail" > /tmp/edp_qc.txt
-elif [[ "$LCD_RESULTS" == '0' ]]; then
+LCD_RESULTS=$?
+
+if [[ $LCD_RESULTS == '0' ]]; then
     echo "pass" > /tmp/edp_qc.txt
+else
+    echo "fail" > /tmp/edp_qc.txt
 fi
-
-dd if=/dev/zero of=/dev/fb0
-fbset -fb /dev/fb0 -g $res_org
-kill -9 $$
