@@ -29,11 +29,11 @@ else
         ! vpudec ! waylandsink
 fi
 
-video_result=$?
 
 sh -c 'dialog --colors --title "Video Test" \
 --no-collapse --yesno "See the vdieo??" 10 50'
 
+video_result=$?
 
 if [[ "$video_result" == '1' ]]; then
     echo "fail" > /tmp/video_qc.txt
