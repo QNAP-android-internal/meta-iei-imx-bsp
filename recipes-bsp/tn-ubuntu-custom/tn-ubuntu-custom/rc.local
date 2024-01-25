@@ -28,7 +28,53 @@ cat <<END > /home/ubuntu/.asoundrc
         card 0
     }
 END
+	MONITOR_STR='<monitors version="2">
+                                <configuration>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <transform>
+        <rotation>right</rotation>
+        <flipped>no</flipped>
+      </transform>
+      <monitor>
+        <monitorspec>
+          <connector>DSI-1</connector>
+          <vendor>unknown</vendor>
+          <product>unknown</product>
+          <serial>unknown</serial>
+        </monitorspec>
+        <mode>
+          <width>800</width>
+          <height>1280</height>
+          <rate>55.802188873291016</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+</monitors>'
 
+	if [ -e "/sys/devices/platform/display-subsystem/drm/card1/card1-HDMI-A-1/" ];then
+                if [ -e "/home/ubuntu/.config/monitors.xml" ];then
+                        if ! grep -q "HDMI-1" /home/ubuntu/.config/monitors.xml ;then
+                                rm -rf /home/ubuntu/.config/monitors.xml
+                        fi
+                fi
+        else
+                if [ -e "/home/ubuntu/.config/monitors.xml" ];then
+                        if  grep -q "HDMI-1" /home/ubuntu/.config/monitors.xml ;then
+                                rm /home/ubuntu/.config/monitors.xml
+                                echo "$MONITOR_STR" >/home/ubuntu/.config/monitors.xml
+				chown ubuntu:ubuntu /home/ubuntu/.config/monitors.xml
+			fi
+                else
+			mkdir /home/ubuntu/.config/
+			echo "$MONITOR_STR" >/home/ubuntu/.config/monitors.xml
+			chown -R ubuntu:ubuntu /home/ubuntu/.config/
+		fi
+        fi
 fi
 
 # setting codec
