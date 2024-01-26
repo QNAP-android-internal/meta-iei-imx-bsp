@@ -168,6 +168,15 @@
     "teston": "true"
   },
   {
+    "names": "GPU",
+    "exec": "/qc/gpu_qc.sh 500",
+    "statusFile": "/tmp/gpu_qc.txt",
+    "auto": "true",
+    "burnin": "true",
+    "burnin_exec": "/qc/burnin/gpu_burnin.sh",
+    "teston": "true"
+  },
+  {
     "names": "END"
   }
 ]
