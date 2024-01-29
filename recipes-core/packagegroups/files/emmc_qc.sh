@@ -79,10 +79,21 @@ case $SOC in
                 EMMC_NUM="2"
                 ;;
 esac
+if [ -f /etc/lsb-release ]; then
+        . /etc/lsb-release
+        OS=$DISTRIB_ID
+fi
 
-EST_TYP_A=`mmc extcsd read /dev/mmcblk$EMMC_NUM | grep "EXT_CSD_DEVICE_LIFE_TIME_EST_TYP_A" | cut -d ':' -f2 | sed s/[[:space:]]//g`
-EST_TYP_B=`mmc extcsd read /dev/mmcblk$EMMC_NUM | grep "EXT_CSD_DEVICE_LIFE_TIME_EST_TYP_B" | cut -d ':' -f2 | sed s/[[:space:]]//g`
-EOL_INFO=`mmc extcsd read /dev/mmcblk$EMMC_NUM | grep "EXT_CSD_PRE_EOL_INFO" | cut -d ':' -f2 | sed s/[[:space:]]//g`
+if [ ${OS} = "Ubuntu" ] ;then
+	EST_TYP_A=`sudo mmc extcsd read /dev/mmcblk$EMMC_NUM | grep "EXT_CSD_DEVICE_LIFE_TIME_EST_TYP_A" | cut -d ':' -f2 | sed s/[[:space:]]//g`
+	EST_TYP_B=`sudo mmc extcsd read /dev/mmcblk$EMMC_NUM | grep "EXT_CSD_DEVICE_LIFE_TIME_EST_TYP_B" | cut -d ':' -f2 | sed s/[[:space:]]//g`
+	EOL_INFO=`sudo mmc extcsd read /dev/mmcblk$EMMC_NUM | grep "EXT_CSD_PRE_EOL_INFO" | cut -d ':' -f2 | sed s/[[:space:]]//g`
+else
+	EST_TYP_A=`mmc extcsd read /dev/mmcblk$EMMC_NUM | grep "EXT_CSD_DEVICE_LIFE_TIME_EST_TYP_A" | cut -d ':' -f2 | sed s/[[:space:]]//g`
+	EST_TYP_B=`mmc extcsd read /dev/mmcblk$EMMC_NUM | grep "EXT_CSD_DEVICE_LIFE_TIME_EST_TYP_B" | cut -d ':' -f2 | sed s/[[:space:]]//g`
+	EOL_INFO=`mmc extcsd read /dev/mmcblk$EMMC_NUM | grep "EXT_CSD_PRE_EOL_INFO" | cut -d ':' -f2 | sed s/[[:space:]]//g`
+fi
+
 EOL_STATUS="null"
 
 checkA=false
