@@ -14,7 +14,7 @@ if [ "$OS" = "Ubuntu" ]; then
 		exit
 	fi
 
-	sudo gst-launch-1.0 playbin uri=file://$test_video_path video-sink="glimagesink render-rectangle=<1,1,1280,800>" audio-sink="alsasink device=hw:0"
+	gst-launch-1.0 filesrc location=$test_video_path ! qtdemux name=demux demux.video_0 !  vpudec ! glimagesink render-rectangle='<1,1,160,90>'
 else
 	sd_path=$(mount | grep mmcblk1 | awk -F' ' '{print $3}')
 	test_video_path=$sd_path/test_video.mp4
