@@ -1,10 +1,5 @@
 #!/bin/sh
 
-if [ -f /etc/lsb-release ]; then
-        . /etc/lsb-release
-        OS=$DISTRIB_ID
-fi
-
 if [ -f /tmp/gpu_qc.txt ];then
 	rm /tmp/gpu_qc.txt
 fi
@@ -13,13 +8,7 @@ if [ -f /tmp/gpu_result.txt ];then
 fi
 
 pass_score=$1
-
-if [ ${OS} = "Ubuntu" ] ;then
-	sudo glmark2-es2-wayland --size 320x180 >/tmp/gpu_result.txt
-else
-	glmark2-es2-wayland --size 320x180 >/tmp/gpu_result.txt
-fi
-
+glmark2-es2-wayland --size 320x180 >/tmp/gpu_result.txt
 score=`cat /tmp/gpu_result.txt |grep " glmark2 Score" |awk '{print $3}'`
 
 if [ $score -ge $pass_score ];then
