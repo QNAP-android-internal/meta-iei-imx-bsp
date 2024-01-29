@@ -15,4 +15,10 @@ SRC_URI = "git://github.com/QNAP-android-internal/IEI-AndroidLightBar.git;protoc
 SRCREV = "${AUTOREV}"
 SCMVERSION = "n"
 
+do_install:append() {
+
+    install -d ${D}${datadir}/iei-lightbar
+    install -m 0644 ${WORKDIR}/git/iei-lightbar_launcher.png ${D}${datadir}/iei-lightbar/
+}
+
 inherit qt6-cmake
