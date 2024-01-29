@@ -23,7 +23,16 @@ do
 	else
 		IRQ_times_before=`cat /proc/interrupts | grep "$IRQ_name" | awk '{print $2}'`
 	fi
-	modprobe g_serial
+	if [ -f /etc/lsb-release ]; then
+		. /etc/lsb-release
+		OS=$DISTRIB_ID
+	fi
+
+	if [ "$OS" = "Ubuntu" ]; then
+		sudo modprobe g_serial
+	else
+		modprobe g_serial
+	fi
 	sleep 1
 
 	IRQ_times_after=`cat /proc/interrupts | grep "$IRQ_name" | awk '{print $2}'`
