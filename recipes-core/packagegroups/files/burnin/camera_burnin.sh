@@ -15,7 +15,7 @@ if [ -f /etc/lsb-release ]; then
 fi
 
 if [ ${OS} = "Ubuntu" ] ;then
-	sudo gst-launch-1.0 v4l2src device=/dev/video3 ! 'video/x-raw,format=YUY2,width=720,height=480,pixel-aspect-ratio=1/1,framerate=30/1' ! glimagesink
+	gst-launch-1.0 v4l2src device=/dev/video3 ! 'video/x-raw,format=YUY2,width=720,height=480,pixel-aspect-ratio=1/1,framerate=30/1' ! glimagesink
 else
 	gst-launch-1.0 v4l2src device=/dev/video3 ! \
 	'video/x-raw,format=YUY2,width=1280,height=720,pixel-aspect-ratio=1/1,framerate=30/1' ! \
