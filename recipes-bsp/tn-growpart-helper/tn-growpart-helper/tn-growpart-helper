@@ -66,6 +66,11 @@ elif [ -f ${NOTIFICATION} ] && [ -f ${GNOME_CONF} ]; then
   # disable sudo with password
   sed -i 's/sudo\tALL=(ALL:ALL) ALL/sudo\tALL=(ALL:ALL) NOPASSWD:ALL/' ${IMAGE_ROOTFS}/etc/sudoers
 
+  # install gnome-shell-extensions-extra.deb for ubuntu
+  dpkg -i /var/cache/PackageKit/downloads/gnome-shell-extensions-extra_20230205-2_all.deb
+  update-alternatives --set iptables /usr/sbin/iptables-legacy
+  cd /qc/
+  sed -i -r -e "s/\#\!\/bin\/sh/\#\!\/bin\/bash/g" `grep -rl "\#\!\/bin\/sh"` /qc
   eog -f ${NOTIFICATION} &
 fi
 
