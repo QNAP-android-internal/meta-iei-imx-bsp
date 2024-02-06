@@ -173,7 +173,7 @@
   },
   {
     "names": "GPU",
-    "exec": "/qc/gpu_qc.sh 500",
+    "exec": "/qc/gpu_qc.sh 300",
     "statusFile": "/tmp/gpu_qc.txt",
     "auto": "true",
     "burnin": "true",
