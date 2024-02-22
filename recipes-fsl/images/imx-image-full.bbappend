@@ -9,5 +9,5 @@ install_demo:append() {
         printf "\n[launcher]\nicon=/usr/share/iei-lightbar/iei-lightbar_launcher.png\npath=/usr/bin/ieiLightbar" >> ${IMAGE_ROOTFS}${sysconfdir}/xdg/weston/weston.ini
     fi
 
-    printf "\n[launcher]\nicon=/usr/share/icons/hicolor/32x32/apps/chromium.png\npath=/usr/bin/chromium --no-sandbox" >> ${IMAGE_ROOTFS}${sysconfdir}/xdg/weston/weston.ini
+    printf "\n[launcher]\nicon=/usr/share/icons/hicolor/32x32/apps/chromium.png\npath=/usr/bin/chromium  --alsa-output-device=plug:dmix --no-sandbox" >> ${IMAGE_ROOTFS}${sysconfdir}/xdg/weston/weston.ini
 }
