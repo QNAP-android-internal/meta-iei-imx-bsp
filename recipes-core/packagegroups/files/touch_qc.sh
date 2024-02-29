@@ -8,7 +8,16 @@ device_path=$(weston-touch-calibrator |& grep device |& awk -F' ' '{print $2}')
 device_path=${device_path#\"}
 device_path=${device_path%\"}
 
-weston-touch-calibrator $device_path
+if [ -f /etc/lsb-release ]; then
+        . /etc/lsb-release
+        OS=$DISTRIB_ID
+fi
+
+if [ "$OS" = "Ubuntu" ]; then
+	xinput_calibrator
+else
+	weston-touch-calibrator $device_path
+fi
 
 sh -c 'dialog --colors --title "Touch Test" \
 --no-collapse --yesno "Touch Drawing works??" 10 50'
