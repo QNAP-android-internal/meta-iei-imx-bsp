@@ -17,8 +17,7 @@ do
 done
 
 sh -c 'dialog --colors --title "Buzzer Test" \
---no-collapse --yesno "Hear buzzer sound??" 10 50 \
-<> /dev/tty1 >&0'
+--no-collapse --yesno "Hear buzzer sound??" 10 50 '
 
 BUZZER_RESULTS="$?"
 if [[ "$BUZZER_RESULTS" == '1' ]]; then
