@@ -119,7 +119,7 @@
   },
   {
     "names": "BUZZER",
-    "exec": "/qc/buzzer_qc.sh",
+    "exec": "sudo /qc/buzzer_qc.sh",
     "statusFile": "/tmp/buzzer_qc.txt",
     "auto": "false",
     "burnin": "false",
@@ -127,7 +127,7 @@
   },
   {
     "names": "LIGHTBAR",
-    "exec": "/qc/lightbar_qc.sh",
+    "exec": "sudo /qc/lightbar_qc.sh",
     "statusFile": "/tmp/lightbar_qc.txt",
     "auto": "false",
     "burnin": "false",
@@ -143,7 +143,7 @@
   },
   {
     "names": "EDP",
-    "exec": "/qc/edp_qc.sh",
+    "exec": "sudo /qc/edp_qc.sh",
     "statusFile": "/tmp/edp_qc.txt",
     "auto": "false",
     "burnin": "false",
@@ -169,7 +169,7 @@
   },
   {
     "names": "GPU",
-    "exec": "/qc/gpu_qc.sh 500",
+    "exec": "/qc/gpu_qc.sh 150",
     "statusFile": "/tmp/gpu_qc.txt",
     "auto": "true",
     "burnin": "true",
