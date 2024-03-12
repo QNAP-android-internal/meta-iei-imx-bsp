@@ -297,8 +297,7 @@ echo 100 > "$LBAR_PATH2/i2c4_led_blue_04/brightness"
 sleep 2
 
 sh -c 'dialog --colors --title "LightBar Test" \
---no-collapse --yesno "See White light on Lightbars?" 10 50 \
-<> /dev/tty1 >&0'
+--no-collapse --yesno "See White light on Lightbars?" 10 50 '
 
 LBAR_RESULTS="$?"
 if [[ "$LBAR_RESULTS" == '1' ]]; then
