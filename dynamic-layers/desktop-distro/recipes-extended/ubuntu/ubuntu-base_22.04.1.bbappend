@@ -20,4 +20,5 @@ APTGET_EXTRA_PACKAGES += " \
     iptables \
     xinput-calibrator \
     iperf \
+    iptables-persistent \
 "
