@@ -69,8 +69,17 @@ elif [ -f ${NOTIFICATION} ] && [ -f ${GNOME_CONF} ]; then
   # install gnome-shell-extensions-extra.deb for ubuntu
   dpkg -i /var/cache/PackageKit/downloads/gnome-shell-extensions-extra_20230205-2_all.deb
   update-alternatives --set iptables /usr/sbin/iptables-legacy
+  
+  # modify shebang for ubuntu /qc
   cd /qc/
   sed -i -r -e "s/\#\!\/bin\/sh/\#\!\/bin\/bash/g" `grep -rl "\#\!\/bin\/sh"` /qc
+
+  #set /usr/lib/udev/rules.d/99-systemd.rules ENV{ID_BLACKLIGHT_CLAMP}+="0" for buzzer difault is turn off.
+  sed -i 's/backlight:$name.service"/backlight:$name.service", ENV{ID_BACKLIGHT_CLAMP}+="0"/g' /usr/lib/udev/rules.d/99-systemd.rules
+  echo 0 > /sys/class/backlight/buzzer_pwm/brightness
+
+  #modify QT_QPA_PLATFORM value for ubuntu ieiLightbar 
+  sed -i 's/wayland/xcb/g' /etc/environment
   eog -f ${NOTIFICATION} &
 fi
 
