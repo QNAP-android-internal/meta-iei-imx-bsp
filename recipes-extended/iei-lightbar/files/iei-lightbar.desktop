@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=ieiLightbar
+Exec=sudo /usr/bin/ieiLightbar
+Icon=/usr/share/iei-lightbar/iei-lightbar_launcher.png
+Terminal=false
+Type=Application
+Categories=Development;
