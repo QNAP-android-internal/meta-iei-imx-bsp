@@ -80,6 +80,9 @@ elif [ -f ${NOTIFICATION} ] && [ -f ${GNOME_CONF} ]; then
 
   #modify QT_QPA_PLATFORM value for ubuntu ieiLightbar 
   sed -i 's/wayland/xcb/g' /etc/environment
+  
+  #modify g101ean024_power.sh shebang of /lib/systemd/system-sleep for ubuntu
+  sed -i -r -e "s/\#\!\/bin\/sh/\#\!\/bin\/bash/g" /lib/systemd/system-sleep/g101ean024_power.sh
   eog -f ${NOTIFICATION} &
 fi
 
