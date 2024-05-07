@@ -15,9 +15,15 @@ do_install() {
         esac
         iei_meta_path=`echo ${BBPATH} | awk -F: '{for (i=1;i<=NF;i++)printf("%s\n", $i)}' |grep meta-iei-imx-bsp`
         cd ${iei_meta_path}
-        version_number=`git tag |grep ${SOC} | tail -1`
+        case ${DISTRO} in
+                fsl-imx-xwayland)
+                        version_number=`git tag | grep ${SOC} | grep -v UBUNTU | tail -1`
+                        ;;
+                imx-desktop-xwayland)
+                        version_number=`git tag | grep ${SOC} | grep UBUNTU | tail -1`
+                        ;;
+        esac
         cd -
-
 	install -d ${D}${sysconfdir}
 	install -m 0755 ${WORKDIR}/iei-release ${D}${sysconfdir}/
 	echo ${version_number} > ${D}${sysconfdir}/iei-release
