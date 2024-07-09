@@ -1,7 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 UBOOT_SRC = "git://github.com/QNAP-android-internal/uboot-imx.git;protocol=https"
-SRCBRANCH = "iei-imx_v2022.04_5.15.71_2.2.0-next"
+SRCBRANCH = "iei-imx_v2024.04_6.6.23_2.0.0-next"
 SRC_URI = "${UBOOT_SRC};branch=${SRCBRANCH}"
 SRCREV = "${AUTOREV}"
 
