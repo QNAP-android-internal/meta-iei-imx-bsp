@@ -16,7 +16,7 @@ if [ ${OS} = "Ubuntu" ] ;then
         fi
         while true
         do
-                gst-launch-1.0 filesrc location=$test_video_path ! qtdemux name=demux demux.video_0 !  vpudec ! glimagesink render-rectangle='<1,1,360,240>'
+                gst-launch-1.0 filesrc location=$test_video_path ! qtdemux ! queue ! vpudec ! imxvideoconvert_g2d ! glimagesink
                 echo "pass" > /tmp/video_qc.txt
         done
 else
