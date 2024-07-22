@@ -7,7 +7,7 @@ ConditionPathExists=/etc/rc.local
 [Service]
 Type=oneshot
 PAMName=login
-User=ubuntu
+User=root
 Slice=user.slice
 ExecStart=/etc/rc.local start
 
