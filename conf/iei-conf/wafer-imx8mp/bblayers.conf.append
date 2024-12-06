@@ -1,3 +1,2 @@
-
-# ADLINK Yocto Project Release layers
 BBLAYERS += "${BSPDIR}/sources/meta-iei-imx-bsp"
+BBLAYERS += "${BSPDIR}/sources/meta-weston-remote-desktop/meta-weston-rdp"
