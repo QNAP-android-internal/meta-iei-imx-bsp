@@ -1,5 +1,5 @@
 From 7dd26a8ba8e6fdffe970dae54574628e2e3123b3 Mon Sep 17 00:00:00 2001
-From: cmwang <cmwang@ieiworld.com>
+From: cmwang <cmwang@startmail.com>
 Date: Mon, 4 Dec 2023 12:20:53 +0800
 Subject: [PATCH] rules.d: 99-systemd.rules: disable ID_BACKLIGHT_CLAMP for
  buzzer_pwm
