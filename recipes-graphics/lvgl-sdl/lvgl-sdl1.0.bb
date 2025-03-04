@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Wig Cheng <wig.cheng@ieiworld.com>
+# Copyright (C) 2023 Wig Cheng <onlywig@gmail.com>
 # Released under the MIT license (see COPYING.MIT for the terms)
 
 DESCRIPTION = "Open-source Embedded GUI Library"
