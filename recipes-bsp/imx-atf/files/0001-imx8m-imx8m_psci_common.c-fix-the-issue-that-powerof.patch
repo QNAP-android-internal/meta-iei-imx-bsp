@@ -1,5 +1,5 @@
 From 5f40272f302d0d0b37121751ae36e2171fb6da47 Mon Sep 17 00:00:00 2001
-From: cmwang <cmwang@ieiworld.com>
+From: cmwang <cmwang@startmail.com>
 Date: Fri, 29 Dec 2023 06:59:45 +0000
 Subject: [PATCH] imx8m: imx8m_psci_common.c: fix the issue that poweroff
  command will reboot
