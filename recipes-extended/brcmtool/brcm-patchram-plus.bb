@@ -4,7 +4,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0-only;;md5=801f80980d171
 SRC_URI = "file://brcm-patchram-plus.c"
 
 INSANE_SKIP:${PN} = "ldflags"
-S = "${WORKDIR}"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 do_compile() {
 	${CC} brcm-patchram-plus.c -o brcm-patchram-plus
