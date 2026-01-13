@@ -17,4 +17,4 @@
 ############################################################################
 
 
-IMAGE_INSTALL:append = " cloud-utils-growpart tn-growpart-helper"
+IMAGE_INSTALL:append = " cloud-utils-growpart tn-growpart-helper tn-ubuntu-custom packagegroup-iei-network zram pulseaudio pulseaudio-server"
