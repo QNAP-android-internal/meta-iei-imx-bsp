@@ -1,3 +1,5 @@
+Upstream-Status: Inappropriate [for iei soc]
+
 diff --git a/iMX8M/soc.mak b/iMX8M/soc.mak
 index 0a69b71..b97a322 100644
 --- a/iMX8M/soc.mak
