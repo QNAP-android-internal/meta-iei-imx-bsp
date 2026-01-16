@@ -18,3 +18,6 @@
 
 
 IMAGE_INSTALL:append = " cloud-utils-growpart tn-growpart-helper tn-ubuntu-custom packagegroup-iei-network zram pulseaudio pulseaudio-server"
+
+# Get poky version from conf/distro/poky.conf
+POKY_VERSION_UPSTREAM := "${@bb.process.run('grep ^DISTRO_VERSION ' + bb.utils.which(d.getVar('BBPATH'), 'conf/distro/poky.conf'), shell=True)[0].split(chr(34))[1]}"
