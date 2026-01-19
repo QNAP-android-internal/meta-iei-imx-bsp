@@ -1,0 +1,36 @@
+From 2c6453b50f12299afd4c5af3d73523133842b151 Mon Sep 17 00:00:00 2001
+From: Wig Cheng <wigcheng@ieiworld.com>
+Date: Sat, 17 Jan 2026 14:42:26 +0800
+Subject: [PATCH] Fix XNNPACK KleidiAI SHA256 hash
+
+Add PATCH_COMMAND to fix KleidiAI hash in XNNPACK after download.
+The upstream hash has changed.
+
+Upstream-Status: Inappropriate [IEI platform specific]
+
+Reported-by: Jason Yang <jasonyang@ieiworld.com>
+Signed-off-by: Wig Cheng <wigcheng@ieiworld.com>
+---
+ tensorflow/lite/tools/cmake/modules/xnnpack.cmake | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/tensorflow/lite/tools/cmake/modules/xnnpack.cmake b/tensorflow/lite/tools/cmake/modules/xnnpack.cmake
+index f946c2245a8..d9ac315e542 100644
+--- a/tensorflow/lite/tools/cmake/modules/xnnpack.cmake
++++ b/tensorflow/lite/tools/cmake/modules/xnnpack.cmake
+@@ -27,6 +27,12 @@ OverridableFetchContent_Declare(
+   GIT_PROGRESS TRUE
+   PREFIX "${CMAKE_BINARY_DIR}"
+   SOURCE_DIR "${CMAKE_BINARY_DIR}/xnnpack"
++  PATCH_COMMAND sed -i
++    "s/f3ea4fce53f3b31076958dbff229f0048dae15bf454929673c78292a56279d52/3564707756473a165ddb3cf670187a4eeb2189c71c5ef01e865567cab071daac/g"
++    cmake/DownloadKleidiAI.cmake || true
++  COMMAND sed -i
++    "s/f3ea4fce53f3b31076958dbff229f0048dae15bf454929673c78292a56279d52/3564707756473a165ddb3cf670187a4eeb2189c71c5ef01e865567cab071daac/g"
++    WORKSPACE MODULE.bazel || true
+ )
+ OverridableFetchContent_GetProperties(xnnpack)
+ if(NOT xnnpack_POPULATED)
+-- 
+2.43.0
+
