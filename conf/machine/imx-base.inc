@@ -17,7 +17,12 @@
 ############################################################################
 
 
-IMAGE_INSTALL:append = " cloud-utils-growpart tn-growpart-helper tn-ubuntu-custom packagegroup-iei-network zram pulseaudio pulseaudio-server"
+IMAGE_INSTALL:append = " cloud-utils-growpart tn-growpart-helper tn-ubuntu-custom packagegroup-iei-network zram pulseaudio pulseaudio-server \
+                         u-boot-fw-utils"
+
+UBOOT_ENV_DEVICE:mx9-generic-bsp = "mmcblk1"
+UBOOT_ENV_SIZE:mx9-generic-bsp = "0x4000"
+UBOOT_ENV_OFFSET:mx9-generic-bsp = "0x700000"
 
 # Get poky version from conf/distro/poky.conf
 POKY_VERSION_UPSTREAM := "${@bb.process.run('grep ^DISTRO_VERSION ' + bb.utils.which(d.getVar('BBPATH'), 'conf/distro/poky.conf'), shell=True)[0].split(chr(34))[1]}"
