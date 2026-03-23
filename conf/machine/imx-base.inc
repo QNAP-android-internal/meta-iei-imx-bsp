@@ -18,7 +18,9 @@
 
 
 IMAGE_INSTALL:append = " cloud-utils-growpart tn-growpart-helper tn-ubuntu-custom packagegroup-iei-network zram pulseaudio pulseaudio-server \
-                         u-boot-fw-utils"
+                         u-boot-fw-utils \
+                         tpm2-tools tpm2-tss tpm2-abrmd \
+"
 
 UBOOT_ENV_DEVICE:mx9-generic-bsp = "mmcblk0"
 UBOOT_ENV_SIZE:mx9-generic-bsp = "0x4000"
