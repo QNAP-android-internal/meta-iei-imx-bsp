@@ -13,6 +13,7 @@ do_install:append() {
 	install -p -m 0755 ${S}/setup-weston-init.sh ${D}${bindir}
 
 	sed -i '/^ExecStart=\/usr\/bin\/weston*/i ExecStartPre=-\/usr\/bin\/setup-weston-init.sh' ${D}${systemd_system_unitdir}/weston.service
+	sed -i '/^\[core\]/a require-outputs=none' ${D}${sysconfdir}/xdg/weston/weston.ini
 }
 
 FILES:${PN} += "${bindir}/setup-weston-init.sh"
