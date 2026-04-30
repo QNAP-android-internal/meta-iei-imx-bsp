@@ -1,0 +1,22 @@
+# Copyright 2024-2025 NXP
+#
+# SPDX-License-Identifier: BSD-3-Clause
+# ==========================  Advanced High-Assurance Boot Configuration template for mimx9596.  ===========================
+
+# ======================================================================================================================
+#                                                 == General Options ==
+# ======================================================================================================================
+family: mimx9596
+revision: latest
+target_memory: serial_downloader
+output: secondary_ahab.bin
+containers:
+  - container:
+      srk_set: none
+      used_srk_id: 0
+      images:
+        - atf: bl31.bin
+
+        - uboot: u-boot.bin
+
+        - tee: tee.bin

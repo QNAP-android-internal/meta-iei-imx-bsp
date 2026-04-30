@@ -1,0 +1,15 @@
+# Copyright 2024 NXP
+#
+# SPDX-License-Identifier: BSD-3-Clause
+# =======================  Bootable Image Configuration template for mimx9596 / serial_downloader.  ========================
+
+# ======================================================================================================================
+#                                                 == General Options ==
+# ======================================================================================================================
+family: mimx9596
+revision: latest
+memory_type: serial_downloader
+# Primary AHAB container — DDR initialisation + SPL
+primary_image_container_set: imx95_ahab_uboot_spl.yaml
+# Secondary AHAB container — ATF + U-Boot proper + TEE
+secondary_image_container_set: imx95_ahab_uboot_atf.yaml

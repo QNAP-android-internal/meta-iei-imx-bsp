@@ -1,0 +1,31 @@
+# Copyright 2024 NXP
+#
+# SPDX-License-Identifier: BSD-3-Clause
+# ==========================  Advanced High-Assurance Boot Configuration template for mimx9596.  ===========================
+
+# ======================================================================================================================
+#                                                 == General Options ==
+# ======================================================================================================================
+family: mimx9596
+revision: latest
+target_memory: serial_downloader
+output: primary_ahab.bin
+containers:
+  - binary_container:
+      path: mx95b0-ahab-container.img
+
+  - container:
+      srk_set: none
+      used_srk_id: 0
+      images:
+        - lpddr_imem: lpddr5_imem_v202409.bin
+          lpddr_imem_qb: lpddr5_imem_qb_v202409.bin
+          lpddr_dmem: lpddr5_dmem_v202409.bin
+          lpddr_dmem_qb: lpddr5_dmem_qb_v202409.bin
+          oei_ddr: oei-m33-ddr.bin
+
+        - system_manager: m33_image-mx95evk.bin
+
+        - spl: u-boot-spl.bin
+
+        - v2x_dummy: true

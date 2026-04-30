@@ -1,0 +1,36 @@
+# ===========================  ahab Configuration template for mimx9596, Revision: latest.  ============================
+# This file is a template — @PLACEHOLDER@ markers are replaced by sed at signing time.
+# See nxp-ahab-secureboot.bbclass for the substitution logic.
+
+# ======================================================================================================================
+#                                                 == General Options ==
+# ======================================================================================================================
+family: mimx9596
+revision: latest
+
+# ======================================================================================================================
+#                                                  == AHAB Container ==
+# ======================================================================================================================
+srk_set: oem
+used_srk_id: 0
+srk_revoke_mask: '0x00'
+gdet_runtime_behavior: disabled
+check_all_signatures: default
+fast_boot: disabled
+fuse_version: 0
+sw_version: 0
+# Signing key — substituted at build time from AHAB_SIGNER_KEY
+signer: type=file;file_path=@AHAB_SIGNER_KEY@
+
+# ======================================================================================================================
+#                                         == Configuration of AHAB SRK table ==
+# ======================================================================================================================
+srk_table:
+  flag_ca: false
+  hash_algorithm: default
+  # SRK public keys — substituted at build time from AHAB_SRK_KEY_0 .. AHAB_SRK_KEY_3
+  srk_array:
+    - @AHAB_SRK_KEY_0@
+    - @AHAB_SRK_KEY_1@
+    - @AHAB_SRK_KEY_2@
+    - @AHAB_SRK_KEY_3@
