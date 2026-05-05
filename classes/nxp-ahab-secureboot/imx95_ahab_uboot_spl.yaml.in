@@ -24,7 +24,7 @@ containers:
           lpddr_dmem_qb: lpddr5_dmem_qb_v202409.bin
           oei_ddr: oei-m33-ddr.bin
 
-        - system_manager: m33_image-mx95evk.bin
+        - system_manager: @AHAB_SM_BINFILE@
 
         - spl: u-boot-spl.bin
 

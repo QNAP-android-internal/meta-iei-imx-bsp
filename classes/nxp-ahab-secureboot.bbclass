@@ -43,6 +43,9 @@ python() {
             'set it manually in local.conf or machine.conf')
 }
 
+# System manager default binary file name
+AHAB_SM_BINFILE ??= "${SYSTEM_MANAGER_FIRMWARE_BASENAME}-${SYSTEM_MANAGER_CONFIG}.bin"
+
 # ---------------------------------------------------------------------------
 # Signing key variables
 # Set these in machine.conf (absolute paths, no shell expansions).
@@ -142,6 +145,10 @@ Set it to the absolute path of the OEM SRK private key in machine.conf."
 '${AHAB_YAML_TEMPLATE_DIR}' does not exist."
     fi
 
+    if [ ! -f "${AHAB_SM_BINFILE}" ]; then
+        bbfatal "nxp-ahab-secureboot: AHAB_SM_BINFILE '${AHAB_SM_BINFILE}' not found in ${DEPLOY_DIR_IMAGE}."
+    fi
+
     if [ -z "${AHAB_KERNEL_DTB}" ]; then
         bbfatal "nxp-ahab-secureboot: AHAB_KERNEL_DTB is not set. \
 Set it to the deployed DTB filename (relative to DEPLOY_DIR_IMAGE) in machine.conf."
@@ -172,6 +179,7 @@ Set it to the deployed DTB filename (relative to DEPLOY_DIR_IMAGE) in machine.co
             -e "s|@AHAB_SRK_KEY_1@|${AHAB_SRK_KEY_1}|g"                 \
             -e "s|@AHAB_SRK_KEY_2@|${AHAB_SRK_KEY_2}|g"                 \
             -e "s|@AHAB_SRK_KEY_3@|${AHAB_SRK_KEY_3}|g"                 \
+            -e "s|@AHAB_SM_BINFILE@|${AHAB_SM_BINFILE}|g"               \
             ${_yaml} > ${DEPLOY_DIR_IMAGE}/$(basename ${_yaml%.in*})
     done
 
