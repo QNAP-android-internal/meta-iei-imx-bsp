@@ -14,6 +14,9 @@ do_install:append() {
 
 	sed -i '/^ExecStart=\/usr\/bin\/weston*/i ExecStartPre=-\/usr\/bin\/setup-weston-init.sh' ${D}${systemd_system_unitdir}/weston.service
 	sed -i '/^\[core\]/a require-outputs=none' ${D}${sysconfdir}/xdg/weston/weston.ini
+
+	# Set HDMI as primary output
+	echo 'WESTON_DRM_PRIMARY=HDMI-A-1' >> ${D}${sysconfdir}/default/weston
 }
 
 FILES:${PN} += "${bindir}/setup-weston-init.sh"
