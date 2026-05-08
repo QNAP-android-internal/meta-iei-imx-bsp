@@ -1,0 +1,75 @@
+From 9843e096914caa88a4bde579c1b08b57846e438e Mon Sep 17 00:00:00 2001
+From: Jason Yang <jasonyang@ieiworld.com>
+Date: Thu, 8 May 2026 12:00:00 +0800
+Subject: [PATCH] frontend: support WESTON_DRM_PRIMARY env for DRM primary
+ output selection
+
+Allow specifying primary output via WESTON_DRM_PRIMARY in
+drm_heads_changed(). The matched head is prepared first, getting
+position (0,0) as the default display.
+
+Configuration: set WESTON_DRM_PRIMARY in /etc/default/weston
+Example: WESTON_DRM_PRIMARY=HDMI-A-1
+
+Upstream-Status: Inappropriate [iEi board-specific configuration]
+---
+ frontend/main.c | 27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
+
+diff --git a/frontend/main.c b/frontend/main.c
+index 10ad2c77..a1b2c3d4 100644
+--- a/frontend/main.c
++++ b/frontend/main.c
+@@ -3008,6 +3008,11 @@ drm_heads_changed(struct wl_listener *listener, void *arg)
+ 	struct wet_backend *wb = container_of(listener, struct wet_backend,
+ 					      heads_changed_listener);
+ 	struct weston_head *head = NULL;
++	struct weston_head *primary_head = NULL;
++	struct weston_head *heads_to_prepare[32];
++	int n_heads = 0;
++	int i;
++	const char *primary_name;
+ 	bool connected;
+ 	bool enabled;
+ 	bool changed;
+@@ -3023,7 +3028,8 @@ drm_heads_changed(struct wl_listener *listener, void *arg)
+ 		forced = drm_head_should_force_enable(wet, head);
+
+ 		if ((connected || forced) && !enabled) {
+-			drm_head_prepare_enable(wet, head);
++			if (n_heads < 32)
++				heads_to_prepare[n_heads++] = head;
+ 		} else if (!(connected || forced) && enabled) {
+ 			drm_head_disable(head);
+ 		} else if (enabled && changed) {
+@@ -3034,6 +3040,28 @@ drm_heads_changed(struct wl_listener *listener, void *arg)
+ 		weston_head_reset_device_changed(head);
+ 	}
+
++	/* If WESTON_DRM_PRIMARY is set, prepare that head first so it gets
++	 * position (0,0) and becomes the primary/default output. */
++	primary_name = getenv("WESTON_DRM_PRIMARY");
++	if (primary_name) {
++		for (i = 0; i < n_heads; i++) {
++			if (strcmp(weston_head_get_name(heads_to_prepare[i]),
++				   primary_name) == 0) {
++				primary_head = heads_to_prepare[i];
++				memmove(&heads_to_prepare[i],
++					&heads_to_prepare[i + 1],
++					(n_heads - i - 1) * sizeof(heads_to_prepare[0]));
++				n_heads--;
++				break;
++			}
++		}
++		if (primary_head)
++			drm_head_prepare_enable(wet, primary_head);
++	}
++
++	for (i = 0; i < n_heads; i++)
++		drm_head_prepare_enable(wet, heads_to_prepare[i]);
++
+ 	if (drm_process_layoutputs(wet) < 0)
+ 		wet->init_failed = true;
+ }
+--
+2.43.0
